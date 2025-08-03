@@ -11,11 +11,15 @@ from cerebras.cloud.sdk import Cerebras
 torch.random.manual_seed(0)
 from cerebras.cloud.sdk import Cerebras
 
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
+
 class AAgent:
     def __init__(self, adapter_type: str, api_key: str):
-        self.adapter_type = adapter_type
-        self.cerebras_api_key = api_key
-        self.cerebras_client = Cerebras(api_key=self.cerebras_api_key)
+        try:
+            self.adapter_type = adapter_type
+            self.cerebras_api_key = api_key
+            self.cerebras_client = Cerebras(api_key=self.cerebras_api_key)
  
         #Local installation
         except ImportError:
