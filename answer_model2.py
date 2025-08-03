@@ -9,11 +9,14 @@ from peft import LoraConfig, PeftModel
 from cerebras.cloud.sdk import Cerebras
 
 torch.random.manual_seed(0)
-class AAgent(object):
-    def __init__(self, adapter_type, **kwargs):
-        try:
-            self.cerebras_api_key = os.environ.get("CEREBRAS_API_KEY")
-            self.cerebras_client = Cerebras(api_key=self.cerebras_api_key)
+from cerebras.cloud.sdk import Cerebras
+
+class AAgent:
+    def __init__(self, adapter_type: str, api_key: str):
+        self.adapter_type = adapter_type
+        self.cerebras_api_key = api_key
+        self.cerebras_client = Cerebras(api_key=self.cerebras_api_key)
+ 
         #Local installation
         except ImportError:
             self.cerebras_client = None
